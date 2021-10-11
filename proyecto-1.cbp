@@ -31,9 +31,14 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="De_Base_N_a_10.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="De_Base_N_a_10.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="main.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>
