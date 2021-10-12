@@ -2,7 +2,7 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="proyecto-1" />
+		<Option title="convert" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
@@ -16,12 +16,13 @@
 				</Compiler>
 			</Target>
 			<Target title="Release">
-				<Option output="bin/Release/proyecto-1" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Release/convert" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add option="-Wall" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -31,9 +32,32 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Linker>
+			<Add option="-lm" />
+		</Linker>
+		<Unit filename="constantes.h" />
+		<Unit filename="conversor_tipos.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="conversor_tipos.h" />
+		<Unit filename="de_base_diez.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="de_base_diez.h">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="procesador_argumentos.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="procesador_argumentos.h" />
+		<Unit filename="proyecto-1.layout" />
+		<Unit filename="validador.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="validador.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

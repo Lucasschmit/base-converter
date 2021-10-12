@@ -1,0 +1,121 @@
+# depslib dependency file v1.0
+1633666398 source:c:\programacion\code_blocks\organizaciondecomputadoras\proyecto-1-convert\proyecto-1\conversor_digitos.c
+
+1633660430 source:c:\programacion\code_blocks\organizaciondecomputadoras\proyecto-1-convert\proyecto-1\de_base_diez.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"de_base_diez.h"
+
+1633669810 c:\programacion\code_blocks\organizaciondecomputadoras\proyecto-1-convert\proyecto-1\de_base_diez.h
+
+1633656610 source:c:\programacion\code_blocks\organizaciondecomputadoras\proyecto-1-convert\proyecto-1\main.c
+	<stdio.h>
+	<stdlib.h>
+	"de_base_diez.h"
+
+1633660250 source:c:\programacion\code_blocks\organizaciondecomputadoras\proyecto-1-convert\proyecto-1\validador_de_numeros.c
+	<stdlib.h>
+
+1633659523 source:c:\programacion\code_blocks\organizaciondecomputadoras\proyecto-1-convert\proyecto-1\de_base_diez.h
+
+1633717963 source:c:\programacion\code_blocks\organizaciondecomputadoras\proyecto-1\conversor_digitos.c
+	"conversor_digitos.h"
+
+1633923457 source:c:\programacion\code_blocks\organizaciondecomputadoras\proyecto-1\de_base_diez.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<math.h>
+	"de_base_diez.h"
+	"conversor_tipos.h"
+
+1633906393 c:\programacion\code_blocks\organizaciondecomputadoras\proyecto-1\de_base_diez.h
+
+1633925916 source:c:\programacion\code_blocks\organizaciondecomputadoras\proyecto-1\main.c
+	<stdio.h>
+	<stdlib.h>
+	"de_base_diez.h"
+	"conversor_tipos.h"
+
+1633660250 source:c:\programacion\code_blocks\organizaciondecomputadoras\proyecto-1\validador_de_numeros.c
+	<stdlib.h>
+
+1633717688 c:\programacion\code_blocks\organizaciondecomputadoras\proyecto-1\conversor_digitos.h
+
+1633895057 c:\programacion\code_blocks\organizaciondecomputadoras\proyecto-1\conversor_tipos.h
+
+1633823656 source:c:\programacion\code_blocks\organizaciondecomputadoras\proyecto-1\validador.c
+	<stdlib.h>
+	"validador.h"
+
+1633823513 c:\programacion\code_blocks\organizaciondecomputadoras\proyecto-1\validador.h
+
+1633898259 source:c:\programacion\code_blocks\organizaciondecomputadoras\proyecto-1\conversor_tipos.c
+	"conversor_tipos.h"
+
+1633924286 source:c:\programacion\code_blocks\organizaciondecomputadoras\proyecto-1\procesador_argumentos.c
+
+1633991993 source:c:\programacion\code_blocks\organizaciondecomputadoras\convert\de_base_diez.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<math.h>
+	"de_base_diez.h"
+	"conversor_tipos.h"
+	"constantes.h"
+
+1633991911 c:\programacion\code_blocks\organizaciondecomputadoras\convert\de_base_diez.h
+
+1633977724 c:\programacion\code_blocks\organizaciondecomputadoras\convert\conversor_tipos.h
+
+1633995949 source:c:\programacion\code_blocks\organizaciondecomputadoras\convert\main.c
+	<stdio.h>
+	<stdlib.h>
+	"de_base_diez.h"
+	"conversor_tipos.h"
+	"procesador_argumentos.h"
+	"constantes.h"
+
+1633992110 source:c:\programacion\code_blocks\organizaciondecomputadoras\convert\conversor_tipos.c
+	<stdlib.h>
+	"conversor_tipos.h"
+
+1633982666 source:c:\programacion\code_blocks\organizaciondecomputadoras\convert\validador.c
+	<stdlib.h>
+	<stdio.h>
+	"validador.h"
+	"conversor_tipos.h"
+
+1633982309 c:\programacion\code_blocks\organizaciondecomputadoras\convert\validador.h
+
+1634059170 source:c:\programacion\code_blocks\organizaciondecomputadoras\convert\procesador_argumentos.c
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	"constantes.h"
+	"validador.h"
+	"conversor_tipos.h"
+
+1634056808 c:\programacion\code_blocks\organizaciondecomputadoras\convert\constantes.h
+
+1634052614 c:\programacion\code_blocks\organizaciondecomputadoras\convert\procesador_argumentos.h
+
+1634058532 source:c:\programacion\code_blocks\organizaciondecomputadoras\convert\convert.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"de_base_diez.h"
+	"De_Base_N_a_10.h"
+	"conversor_tipos.h"
+	"procesador_argumentos.h"
+	"constantes.h"
+
+1634001065 c:\programacion\code_blocks\organizaciondecomputadoras\convert\de_base_n_a_10.h
+
+1634058398 source:c:\programacion\code_blocks\organizaciondecomputadoras\convert\de_base_n_a_10.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<string.h>
+
