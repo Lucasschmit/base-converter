@@ -59,7 +59,11 @@ int * procesarArgumentos(int * argc, char * argv[], char ** numero, int ** base_
           if ((*i) < (*argc) - 1) {
             if (es_un_numero_valido_en_base(argv[(*i) + 1], base_diez) && representa_un_numero_entero(argv[(*i) + 1])) {
               aux = string_a_int(argv[++(*i)]);
-              **base_origen = *aux;
+              if (BASE_MINIMA <= *aux && *aux <= BASE_MAXIMA) {
+                **base_origen = *aux;
+              } else {
+                *estado_argumentos = *estado_argumentos | ERROR_BASE_ORIGEN;
+              }
               free(aux);
               //printf("\t\tbase de origen: %d\n", **base_origen);
             } else {
@@ -78,7 +82,11 @@ int * procesarArgumentos(int * argc, char * argv[], char ** numero, int ** base_
           if ((*i) < (*argc) - 1) {
             if (es_un_numero_valido_en_base(argv[(*i) + 1], base_diez) && representa_un_numero_entero(argv[(*i) + 1])) {
               aux = string_a_int(argv[++(*i)]);
-              **base_destino = *aux;
+              if (BASE_MINIMA <= *aux && *aux <= BASE_MAXIMA) {
+                **base_destino = *aux;
+              } else {
+                *estado_argumentos = *estado_argumentos | ERROR_BASE_DESTINO;
+              }
               free(aux);
 
               //printf("\t\tbase de destino: %d\n", **base_destino);
@@ -104,6 +112,10 @@ int * procesarArgumentos(int * argc, char * argv[], char ** numero, int ** base_
       if (!es_un_numero_valido_en_base(*numero, *base_origen)) {
         *estado_argumentos = *estado_argumentos | ERROR_NUMERO_INVALIDO_EN_BASE_ORIGEN;
       }
+    }
+
+    if (*estado_argumentos & ERROR_FALTA_NUMERO) {
+      *estado_argumentos = *estado_argumentos | ERROR_CANTIDAD_DE_PARAMETROS;
     }
 
     if (*estado_argumentos == 0) {

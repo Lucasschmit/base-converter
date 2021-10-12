@@ -37,7 +37,7 @@ int main(int argc, char * argv[]) {
 
   estado_argumentos = procesarArgumentos(&argc, argv, &numero, &base_origen, &base_destino, modo_verbose, modo_ayuda);
   //printf("Estado argumentos: %x\n", *estado_argumentos);
-  if (*estado_argumentos == ARGUMENTOS_CORRECTOS) {
+  if ((*estado_argumentos == ARGUMENTOS_CORRECTOS) || (*modo_ayuda)) {
     /*
     printf("Argumentos procesados.\n");
     printf("Numero: %s\n", numero);
@@ -88,7 +88,6 @@ int main(int argc, char * argv[]) {
       printf("\tError: La parte fraccionaria del numero tiene mas digitos de los permitidos. Cantidad maxima de digitos permitidos para la parte fraccionaria: %d\n", MAX_CANT_DIGITOS_ENTRADA_PARTE_FRACCIONARIA);
     }
     printf("Codigo de error: 0x%X\n", *estado_argumentos);
-    printf("\nMostrando ayuda:\n");
     mostrarAyuda();
   }
 
@@ -96,6 +95,7 @@ int main(int argc, char * argv[]) {
 }
 
 void mostrarAyuda() {
+  printf("\nMostrando ayuda:\n");
   printf("\nconvert es un programa para convertir un numero de una base a otra.\n\n");
   printf("uso: convert -n <numero> [-s <base_origen>] [-d <base_destino>] [-v] [-h]\n\n");
 
