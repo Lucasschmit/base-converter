@@ -4,7 +4,6 @@
 
 #include "de_base_diez.h"
 #include "De_Base_N_a_10.h"
-#include "conversor_tipos.h"
 #include "procesador_argumentos.h"
 #include "constantes.h"
 
@@ -15,6 +14,9 @@ void test_desde_base_diez();
 void test_desde_base_diez2();
 
 /*PROYECTO OdC "convert"*/
+/**
+  Funcion Principal de la aplicacion
+*/
 int main(int argc, char * argv[]) {
   char * numero;
   char * resultado_en_base_diez;
@@ -103,6 +105,9 @@ int main(int argc, char * argv[]) {
   exit(EXIT_SUCCESS);
 }
 
+/**
+  Muestra la ayuda por pantalla
+*/
 void mostrarAyuda() {
   printf("\nMostrando ayuda:\n");
   printf("\nconvert es un programa para convertir un numero de una base a otra.\n\n");
@@ -116,92 +121,4 @@ void mostrarAyuda() {
   printf("<base_destino>        - La base a la que se desea convertir el numero <numero>. Debe estar expresada en base 10. Rango: [%d,%d]. Valor por defecto: %d\n\n", BASE_MINIMA, BASE_MAXIMA, BASE_POR_DEFECTO);
   printf("[-v]                  - Imprime el paso a paso de la conversion.\n\n");
   printf("\n");
-}
-
-void test_desde_base_diez() {
-    char * cadena;
-    char * res;
-    int * base_destino;
-    int * verbose;
-
-    base_destino = (int *) malloc(sizeof(int));
-    verbose = (int *) malloc(sizeof(int));
-
-    *base_destino = 8;
-    *verbose = 1;
-
-    cadena = "6.5";//110.1
-    printf("convirtiendo %s\n", cadena);
-    res = de_base_diez(cadena, base_destino, verbose);
-    printf("\t(%s)10 = (%s)%d\n\n", cadena, res, *base_destino);
-
-    cadena = "13.625";//1101.101
-    printf("convirtiendo %s\n", cadena);
-    res = de_base_diez(cadena, base_destino, verbose);
-    printf("\t(%s)10 = (%s)%d\n\n", cadena, res, *base_destino);
-
-    cadena = "127.750";//1111111.11
-    printf("convirtiendo %s\n", cadena);
-    res = de_base_diez(cadena, base_destino, verbose);
-    printf("\t(%s)10 = (%s)%d\n\n", cadena, res, *base_destino);
-
-    cadena = "12.0";//1100.0
-    printf("convirtiendo %s\n", cadena);
-    res = de_base_diez(cadena, base_destino, verbose);
-    printf("\t(%s)10 = (%s)%d\n\n", cadena, res, *base_destino);
-
-    cadena = "1.5703125";//1.1001001
-    printf("convirtiendo %s\n", cadena);
-    res = de_base_diez(cadena, base_destino, verbose);
-    printf("\t(%s)10 = (%s)%d\n\n", cadena, res, *base_destino);
-
-    cadena = "0.03125";//0.00001
-    printf("convirtiendo %s\n", cadena);
-    res = de_base_diez(cadena, base_destino, verbose);
-    printf("\t(%s)10 = (%s)%d\n\n", cadena, res, *base_destino);
-
-    cadena = ".03125";//0.00001
-    printf("convirtiendo %s\n", cadena);
-    res = de_base_diez(cadena, base_destino, verbose);
-    printf("\t(%s)10 = (%s)%d\n\n", cadena, res, *base_destino);
-
-    cadena = "139857";//100010001001010001.0
-    printf("convirtiendo %s\n", cadena);
-    res = de_base_diez(cadena, base_destino, verbose);
-    printf("\t(%s)10 = (%s)%d\n\n", cadena, res, *base_destino);
-
-    cadena = "139857.";//100010001001010001.0
-    printf("convirtiendo %s\n", cadena);
-    res = de_base_diez(cadena, base_destino, verbose);
-    printf("\t(%s)10 = (%s)%d\n\n", cadena, res, *base_destino);
-
-    cadena = ".";//0.0
-    printf("convirtiendo %s\n", cadena);
-    res = de_base_diez(cadena, base_destino, verbose);
-    printf("\t(%s)10 = (%s)%d\n\n", cadena, res, *base_destino);
-
-    cadena = "";//0.0
-    printf("convirtiendo %s\n", cadena);
-    res = de_base_diez(cadena, base_destino, verbose);
-    printf("\t(%s)10 = (%s)%d\n\n", cadena, res, *base_destino);
-}
-
-void test_desde_base_diez2() {
-    char * cadena;
-    char * res;
-    int * base_destino;
-    int * verbose;
-
-    base_destino = (int *) malloc(sizeof(int));
-    verbose = (int *) malloc(sizeof(int));
-
-    *base_destino = 8;
-    *verbose = 1;
-
-    cadena = "687.21875";//1010101111.00111
-
-    for (*base_destino = BASE_MINIMA; *base_destino <= BASE_MAXIMA; ++(*base_destino)) {
-      res = de_base_diez(cadena, base_destino, verbose);
-      printf("\t(%s)10 = (%s)%d\n\n", cadena, res, *base_destino);
-    }
 }

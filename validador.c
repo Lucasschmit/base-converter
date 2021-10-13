@@ -5,6 +5,9 @@
 
 int es_un_digito_valido(char * digito, int * base);
 
+/**
+  Chequea si una cadena de caracteres representa un numero valido en la base solicitada
+*/
 int es_un_numero_valido_en_base(char * cadena, int * base) {
   int * i;
   int * es_valido;
@@ -54,6 +57,9 @@ int es_un_numero_valido_en_base(char * cadena, int * base) {
   }
 }
 
+/**
+  Chequea si el digito es valido en la base solicitada
+*/
 int es_un_digito_valido(char * digito, int * base) {
     return (es_numero(digito) || es_letra(digito)) && ((0 <= digito_a_int(digito)) && (digito_a_int(digito) < (*base)));
 }

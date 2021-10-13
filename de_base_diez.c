@@ -22,11 +22,14 @@ int * index_punto(char * cadena);
 
 
 /**
-    Cadena se asume terminada en '\0' y con todos sus caracteres entre '0' y '9' o '.'
+  Recibe una cadena en base 10 y la convierte a la base de destino solicitada.
+  Si se indica el modo verbose, indica el paso a paso de la conversion
 
-    Estrategia utilizada para convertir la parte entera: Metodo de la division
+  Cadena se asume terminada en '\0' y con todos sus caracteres entre '0' y '9' o '.'
 
-    Estrategia utilizada para convertir la parte fraccionaria: Metodo de la multiplicacion
+  Estrategia utilizada para convertir la parte entera: Metodo de la division
+
+  Estrategia utilizada para convertir la parte fraccionaria: Metodo de la multiplicacion
 */
 char * de_base_diez(char * cadena, int * base_destino, int * modo_verbose) {
     char * parte_entera;
@@ -95,7 +98,10 @@ char * de_base_diez(char * cadena, int * base_destino, int * modo_verbose) {
     return resultado_definitivo;
 }
 
-//Necesita que cadena sea al menos "0", no puede estar vacia.
+/**
+  Recibe una cadena que representa un entero en base 10 y devuelve otra cadena con su representacion en base destino
+  Necesita que cadena sea al menos "0", no puede estar vacia.
+*/
 char * convertir_parte_entera(char * cadena, int * base_destino, int * modo_verbose) {
     char * resultado;
     char * resultado_preliminar;
@@ -177,7 +183,10 @@ char * convertir_parte_entera(char * cadena, int * base_destino, int * modo_verb
     return resultado;
 }
 
-//Necesita que cadena sea al menos "0", no puede estar vacia.
+/**
+  Recibe una cadena que representa una parte fraccionaria en base 10 y devuelve otra cadena con su representacion en base destino
+  Necesita que cadena sea al menos "0", no puede estar vacia.
+*/
 char * convertir_parte_fraccionaria(char * cadena, int * base_destino, int * modo_verbose) {
     char * resultado;
     char * resultado_preliminar;
@@ -205,11 +214,24 @@ char * convertir_parte_fraccionaria(char * cadena, int * base_destino, int * mod
     //printf("\t\t\tdivisor: %d\n", *divisor);
     //printf("\t\t\tvalor entero: %d\n", *valor_en_entero);
 
+    if (*modo_verbose) {
+        printf("\nConvirtiendo parte fraccionaria de base 10 a base %d.\n", *base_destino);
+        printf("\tTrabajando sobre la parte fraccionaria %d\n", *valor_en_entero);
+    }
     if (*valor_en_entero > 0) {
         while ((*valor_en_entero > 0) && ((MAX_CANT_DIGITOS_SALIDA_PARTE_FRACCIONARIA - (*index_resultado_preliminar)) > 0)) {
 
             *producto = (*valor_en_entero) * (*base_destino);
+
+            if (*modo_verbose) {
+              printf("\tProducto entre la parte fraccionaria %d y la base de destino(%d): %d\n", *valor_en_entero, *base_destino, *producto);
+            }
+
             *cociente = (*producto) / (*divisor);
+
+            if (*modo_verbose) {
+              printf("\tParte entera del producto anterior: %d\n", *cociente);
+            }
 
             *valor_en_entero = (*producto) % (*divisor);
 
@@ -221,6 +243,11 @@ char * convertir_parte_fraccionaria(char * cadena, int * base_destino, int * mod
 
             resultado_preliminar[*index_resultado_preliminar] = int_a_digito(cociente);
 
+            if (*modo_verbose) {
+              printf("\tLa parte entera(%d) del producto anterior es el valor del proximo digito(%c) que se agrega al final del numero en la base de destino.\n\n", *cociente, resultado_preliminar[*index_resultado_preliminar]);
+              printf("\tNuevo numero sobre el que trabajaremos(parte fraccionaria del producto anterior): %d\n", *valor_en_entero);
+            }
+
             (*index_resultado_preliminar)++;
         }
     } else {
@@ -230,11 +257,23 @@ char * convertir_parte_fraccionaria(char * cadena, int * base_destino, int * mod
 
     resultado_preliminar[*index_resultado_preliminar] = '\0';
 
+    if (*modo_verbose) {
+      if (*valor_en_entero == 0) {
+        printf("\tComo el numero sobre el que estamos trabajando es cero, damos por terminada la conversion.\n");
+      } else if (!((MAX_CANT_DIGITOS_SALIDA_PARTE_FRACCIONARIA - (*index_resultado_preliminar)) > 0)) {
+        printf("\tComo se llego a la maxima precision definida para parte fraccionaria, damos por terminada la conversion.\n");
+      }
+    }
+
     //printf("\tresultado fraccionario preliminar: %s\n", resultado_preliminar);
 
     resultado = (char*) malloc(sizeof(int) * ((*index_resultado_preliminar) + 1));
 
     strcpy(resultado, resultado_preliminar);
+
+    if (*modo_verbose) {
+      printf("\n\tResultado de convertir la parte fraccionaria: %s\n", resultado);
+    }
 
     free(valor_en_entero);
 

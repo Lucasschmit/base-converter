@@ -13,16 +13,17 @@ void deNa10Decimal(int *BaseOrigen,char *numeroDecimal, char *resultadoNa10Strin
 void concatenarCadenas(char *numEntero, char *numDecimal, char *numCompleto);
 void mapearDigito(char * pDigito, int *digitoInt);
 void toString(double *resultadoFloat, char * resultadoString, char * parteNum);
-void dividirCadenas(char *numEntero, char *numDecimal, char *numCompleto, int * modo_verbose);
+void dividirCadenas(char *numEntero, char *numDecimal, char *numCompleto);
 /**
+  Recibe una cadena en base N y la convierte a la base 10.
+  Si se indica el modo verbose, indica el paso a paso de la conversion
+
   Cadena se asume terminada en '\0' y con todos sus caracteres en el rango [0, 9] o '.' o ['a'('A'), 'f'('F')]
 
   Estrategia utilizada para convertir la parte entera: Metodo de la multiplicación
 
   Estrategia utilizada para convertir la parte fraccionaria: Metodo de la división
-
 */
-
 void deNa10(int *baseOrigen, char *numero, char *resultado, int * modo_verbose){
 
     char *numeroParteEntera;
@@ -37,7 +38,7 @@ void deNa10(int *baseOrigen, char *numero, char *resultado, int * modo_verbose){
     char *numeroConvertidoParteDecimal;
     numeroConvertidoParteDecimal=(char *)malloc(sizeof(char)*20);
 
-    dividirCadenas(numeroParteEntera,numeroParteDecimal,numero,modo_verbose);
+    dividirCadenas(numeroParteEntera,numeroParteDecimal,numero);
     if (*modo_verbose) {
       printf("Separando a %s en su parte entera y fraccionaria:\n", numero);
       printf("\tParte entera: %s\n", numeroParteEntera);
@@ -72,6 +73,11 @@ void deNa10(int *baseOrigen, char *numero, char *resultado, int * modo_verbose){
     free(numeroConvertidoParteEntera);
     free(numeroConvertidoParteDecimal);
 }
+
+/**
+  Recibe una cadena que representa la parte entera de un numero en una dada base y la convierte a base 10
+  Si se indica el modo verbose, indica el paso a paso de la conversion
+*/
 void deNa10Entero(int *BaseOrigen,char *numeroEntero, char *stringResultadoNa10, int * modo_verbose){
 
     char *pDigito;
@@ -152,6 +158,10 @@ void deNa10Entero(int *BaseOrigen,char *numeroEntero, char *stringResultadoNa10,
     free(parteDelNumero);
 }
 
+/**
+  Recibe una cadena que representa la parte fraccionaria de un numero en una dada base y la convierte a base 10
+  Si se indica el modo verbose, indica el paso a paso de la conversion
+*/
 void deNa10Decimal(int *BaseOrigen,char *numeroDecimal, char *resultadoNa10String, int * modo_verbose){
     char *pDigito;
     pDigito=(char *)malloc(sizeof(char));
@@ -230,6 +240,10 @@ void deNa10Decimal(int *BaseOrigen,char *numeroDecimal, char *resultadoNa10Strin
     free(resultadoNa10);
     free(parteDelNumero);
 }
+
+/**
+  Recibe un puntero a double y devuelve una cadena con su representacion dependiendo de que parte del numero sea(entera o fraccionaria)
+*/
  void toString(double *resultadoFloat, char * resultadoString, char * parteNum){
      int *tamResultado;
     tamResultado=(int *)malloc(sizeof(int));
@@ -258,7 +272,11 @@ void deNa10Decimal(int *BaseOrigen,char *numeroDecimal, char *resultadoNa10Strin
 
     free(tamResultado);
     free(indiceResultado);
- }
+}
+
+/**
+  Recibe un caracter y devuelve su valor en entero
+*/
  void mapearDigito(char * pDigito, int *digitoInt){
 
     if(*pDigito==('A') || *pDigito==('B') || *pDigito==('C') || *pDigito==('D') || *pDigito==('E') || *pDigito==('F')){
@@ -272,7 +290,11 @@ void deNa10Decimal(int *BaseOrigen,char *numeroDecimal, char *resultadoNa10Strin
             *digitoInt=*pDigito - 48;
     }
     }
- }
+}
+
+/**
+  Concatena la parte entera y fraccionaria del numero en una sola cadena
+*/
  void concatenarCadenas(char *numEntero, char *numDecimal, char *numCompleto){
     int *indiceNumCompleto;
     indiceNumCompleto=(int *)malloc(sizeof(int));
@@ -302,7 +324,11 @@ void deNa10Decimal(int *BaseOrigen,char *numeroDecimal, char *resultadoNa10Strin
     free(indiceNum);
     free(indiceNumCompleto);
  }
- void dividirCadenas(char *numEntero, char *numDecimal, char *numCompleto, int * modo_verbose){
+
+ /**
+  Separa la cadena del numero en su parte entera y fraccionaria
+ */
+ void dividirCadenas(char *numEntero, char *numDecimal, char *numCompleto){
     // printf("Entra en dividirCadenas\n");
     int *indiceNumCompleto;
     indiceNumCompleto=(int *)malloc(sizeof(int));

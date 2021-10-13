@@ -8,6 +8,10 @@
 
 int cumple_restricciones_para_numero(char * cadena, int * estado);
 
+/**
+  Recibe los argumentos recibidos de la consola, los procesa, y los devuelve con los valores correspondientes
+  Devuelve un puntero a entero que indica si se encontraron argumentos validos para proceder con la conversion o no
+*/
 int * procesarArgumentos(int * argc, char * argv[], char ** numero, int ** base_origen, int ** base_destino, int * modo_verbose, int * modo_ayuda) {
     int * i;
     int * aux;
@@ -114,9 +118,11 @@ int * procesarArgumentos(int * argc, char * argv[], char ** numero, int ** base_
         free(parametro_actual);
     }
 
-    if ( !((*estado_argumentos) & ERROR_NUMERO_INVALIDO) && !( (*estado_argumentos) & ERROR_BASE_ORIGEN ) ) {
-      if (!es_un_numero_valido_en_base(*numero, *base_origen)) {
-        *estado_argumentos = *estado_argumentos | ERROR_NUMERO_INVALIDO_EN_BASE_ORIGEN;
+    if (!((*estado_argumentos) & ERROR_FALTA_NUMERO)) {
+      if ( !((*estado_argumentos) & ERROR_NUMERO_INVALIDO) && !( (*estado_argumentos) & ERROR_BASE_ORIGEN ) ) {
+        if (!es_un_numero_valido_en_base(*numero, *base_origen)) {
+          *estado_argumentos = *estado_argumentos | ERROR_NUMERO_INVALIDO_EN_BASE_ORIGEN;
+        }
       }
     }
 
@@ -134,6 +140,10 @@ int * procesarArgumentos(int * argc, char * argv[], char ** numero, int ** base_
     return estado_argumentos;
 }
 
+/**
+  Verifica si la cadena que podria representar un numero, tiene caracteres validos para ser interpretados como digitos.
+  Ademas se encarga de verificar la longitud de la parte entera y fraccionaria del numero
+*/
 int cumple_restricciones_para_numero(char * cadena, int * estado) {
   int * i;
   int * largo_parte_entera;
