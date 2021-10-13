@@ -8,12 +8,12 @@
 #define precisionDecimal 5
 
 void deNa10(int *baseOrigen, char *numero, char *resultado, int * modo_verbose);
-void deNa10Entero(int *BaseOrigen,char *numeroEntero, char *stringResultadoNa10);
-void deNa10Decimal(int *BaseOrigen,char *numeroDecimal, char *resultadoNa10String);
+void deNa10Entero(int *BaseOrigen,char *numeroEntero, char *stringResultadoNa10, int * modo_verbose);
+void deNa10Decimal(int *BaseOrigen,char *numeroDecimal, char *resultadoNa10String, int * modo_verbose);
 void concatenarCadenas(char *numEntero, char *numDecimal, char *numCompleto);
 void mapearDigito(char * pDigito, int *digitoInt);
-void toString(double *resultadoFloat, char * resultadoString, char * parteNum );
-void dividirCadenas(char *numEntero, char *numDecimal, char *numCompleto);
+void toString(double *resultadoFloat, char * resultadoString, char * parteNum);
+void dividirCadenas(char *numEntero, char *numDecimal, char *numCompleto, int * modo_verbose);
 /**
   Cadena se asume terminada en '\0' y con todos sus caracteres en el rango [0, 9] o '.' o ['a'('A'), 'f'('F')]
 
@@ -37,31 +37,32 @@ void deNa10(int *baseOrigen, char *numero, char *resultado, int * modo_verbose){
     char *numeroConvertidoParteDecimal;
     numeroConvertidoParteDecimal=(char *)malloc(sizeof(char)*20);
 
-    dividirCadenas(numeroParteEntera,numeroParteDecimal,numero);
+    dividirCadenas(numeroParteEntera,numeroParteDecimal,numero,modo_verbose);
     if (*modo_verbose) {
-      printf("Parte entera de %s: %s\n", numero, numeroParteEntera);
-      printf("Parte fraccionaria de %s: %s\n", numero, numeroParteDecimal);
+      printf("Separando a %s en su parte entera y fraccionaria:\n", numero);
+      printf("\tParte entera: %s\n", numeroParteEntera);
+      printf("\tParte fraccionaria: %s\n", numeroParteDecimal);
       //printf("El numero %s se dividio en la parte entera : %s\n y la parte decimal: %s\n",numero,numeroParteEntera,numeroParteDecimal);
       //printf("___________________________________________________________________________________________________________\n");
     }
 
-    deNa10Entero(baseOrigen,numeroParteEntera,numeroConvertidoParteEntera);
+    deNa10Entero(baseOrigen,numeroParteEntera,numeroConvertidoParteEntera,modo_verbose);
     if (*modo_verbose){
-      printf("Resultado de convertir la parte entera de (%s)%d a base 10: %s\n", numero, *baseOrigen, numeroConvertidoParteEntera);
+      //printf("Resultado de convertir la parte entera de (%s)%d a base 10: %s\n", numero, *baseOrigen, numeroConvertidoParteEntera);
       //printf("El numero entero %s en base: %d\n Es %s en base 10\n",numeroParteEntera,*baseOrigen,numeroConvertidoParteEntera);
       //printf("___________________________________________________________________________________________________________\n");
     }
 
-    deNa10Decimal(baseOrigen,numeroParteDecimal,numeroConvertidoParteDecimal);
+    deNa10Decimal(baseOrigen,numeroParteDecimal,numeroConvertidoParteDecimal,modo_verbose);
     if (*modo_verbose) {
-      printf("Resultado de convertir la parte fraccionaria de (%s)%d a base 10: %s\n", numero, *baseOrigen, numeroConvertidoParteDecimal);
+      //printf("Resultado de convertir la parte fraccionaria de (%s)%d a base 10: %s\n", numero, *baseOrigen, numeroConvertidoParteDecimal);
       //printf("El numero decimal %s en base: %d\n Es %s en base 10\n",numeroParteDecimal,*baseOrigen,numeroConvertidoParteDecimal);
       //printf("___________________________________________________________________________________________________________\n");
     }
 
     concatenarCadenas(numeroConvertidoParteEntera,numeroConvertidoParteDecimal,resultado);
     if (*modo_verbose) {
-      printf("Resultado final de convertir (%s)%d a base 10: (%s)10\n", numero, *baseOrigen, resultado);
+      //printf("Resultado final de convertir (%s)%d a base 10: (%s)10\n", numero, *baseOrigen, resultado);
       //printf("El numero %s en base %d, convertido a base 10 es: %s\n",numero,*baseOrigen,resultado);
       //printf("___________________________________________________________________________________________________________\n");
     }
@@ -71,7 +72,7 @@ void deNa10(int *baseOrigen, char *numero, char *resultado, int * modo_verbose){
     free(numeroConvertidoParteEntera);
     free(numeroConvertidoParteDecimal);
 }
-void deNa10Entero(int *BaseOrigen,char *numeroEntero, char *stringResultadoNa10){
+void deNa10Entero(int *BaseOrigen,char *numeroEntero, char *stringResultadoNa10, int * modo_verbose){
 
     char *pDigito;
     pDigito=(char *)malloc(sizeof(char));
@@ -104,6 +105,9 @@ void deNa10Entero(int *BaseOrigen,char *numeroEntero, char *stringResultadoNa10)
     *indicePotencia=0;
     *resultadoNa10=0;
     *pDigito=numeroEntero[*indiceNumeroEntero];
+    if (*modo_verbose) {
+        printf("\nConvirtiendo parte entera de base %d a base 10.\n", *BaseOrigen);
+    }
     while( *indiceNumeroEntero>=0){
         //printf("indiceNumeroEntero: %d\n",*indiceNumeroEntero);
         //printf("tamNumeroEntero: %d\n",*tamNumeroEntero);
@@ -111,18 +115,31 @@ void deNa10Entero(int *BaseOrigen,char *numeroEntero, char *stringResultadoNa10)
 
         *baseElevada=pow(*BaseOrigen,*indicePotencia);
 
+        if (*modo_verbose) {
+          printf("\tTrabajando sobre digito numero %d = %c.\n", *indicePotencia, *pDigito);
+          printf("\tPotencia de la base por la que se multiplica el digito actual: %d elevado a %d = %d\n", *BaseOrigen, *indicePotencia, *baseElevada);
+        }
+
         *indicePotencia=*indicePotencia+1;
         //printf("pDigito Es: %c\n", *pDigito);
         //printf("baseOrigen Es: %d\n", *BaseOrigen);
         //printf("baseElevada Es: %d\n", *baseElevada);
         //printf("pDigitoNum Es: %d\n", *pDigitoNum);
         *resultadoNa10= *resultadoNa10 + (double)(*pDigitoNum * *baseElevada);
-       // printf("el resultado es: %f\n", *resultadoNa10);
+        if (*modo_verbose) {
+          printf("\tResultado de multiplicar el digito por la base elevada: %d\n", ((*pDigitoNum) * (*baseElevada)));
+          printf("\tResultado actual de la conversion sumando todos los digitos procesados, multiplicados por su respectiva potencia: %d\n\n", (int)*resultadoNa10);
+        }
+        //printf("el resultado es: %f\n", *resultadoNa10);
         //printf("---------------------------------------------------\n");
         *indiceNumeroEntero=*indiceNumeroEntero-1;
         *pDigito=numeroEntero[*indiceNumeroEntero];
     }
     toString(resultadoNa10,stringResultadoNa10,parteDelNumero);
+
+    if (*modo_verbose) {
+      printf("\n\tResultado de convertir la parte entera: %s\n", stringResultadoNa10);
+    }
 
     //printf("el resultado es: %s\n", stringResultadoNa10);
     free(baseElevada);
@@ -135,7 +152,7 @@ void deNa10Entero(int *BaseOrigen,char *numeroEntero, char *stringResultadoNa10)
     free(parteDelNumero);
 }
 
-void deNa10Decimal(int *BaseOrigen,char *numeroDecimal, char *resultadoNa10String){
+void deNa10Decimal(int *BaseOrigen,char *numeroDecimal, char *resultadoNa10String, int * modo_verbose){
     char *pDigito;
     pDigito=(char *)malloc(sizeof(char));
 
@@ -169,16 +186,28 @@ void deNa10Decimal(int *BaseOrigen,char *numeroDecimal, char *resultadoNa10Strin
 
     *pDigito=numeroDecimal[*indiceNumeroDecimal];
     //printf("pDigito Es: %c\n", *pDigito);
+    if (*modo_verbose) {
+        printf("\nConvirtiendo parte fraccionaria de base %d a base 10.\n", *BaseOrigen);
+    }
     while( numeroDecimal[*indiceNumeroDecimal]!='\0'){
         mapearDigito(pDigito,pDigitoNum);
 
         *baseElevada=pow(*BaseOrigen,*indicePotencia);
+
+        if (*modo_verbose) {
+          printf("\tTrabajando sobre digito numero %d = %c.\n", -(*indicePotencia), *pDigito);
+          printf("\tPotencia de la base por la que se divide el digito actual: %d elevado a %d = %d\n", *BaseOrigen, *indicePotencia, *baseElevada);
+        }
 
         *indicePotencia=*indicePotencia+1;
         //printf("baseOrigen Es: %d\n", *BaseOrigen);
         //printf("baseElevada Es: %d\n", *baseElevada);
         //printf("pDigitoNum Es: %d\n", *pDigitoNum);
         *resultadoNa10= *resultadoNa10 + ((double) *pDigitoNum /(double) *baseElevada);
+        if (*modo_verbose) {
+          printf("\tResultado de dividir el digito por la base elevada: %f\n", ((double) *pDigitoNum /(double) *baseElevada));
+          printf("\tResultado actual de la conversion sumando todos los digitos procesados, divididos por su respectiva potencia: %f\n\n", *resultadoNa10);
+        }
         //printf("El resultado es: %f\n", *resultadoNa10);
         //printf("---------------------------------------------------\n");
         *indiceNumeroDecimal=*indiceNumeroDecimal+1;
@@ -186,6 +215,10 @@ void deNa10Decimal(int *BaseOrigen,char *numeroDecimal, char *resultadoNa10Strin
     }
 
     toString(resultadoNa10,resultadoNa10String,parteDelNumero);
+
+    if (*modo_verbose) {
+      printf("\n\tResultado de convertir la parte fraccionaria: %s\n", resultadoNa10String);
+    }
 
     //printf("resultado parte decimal:%s\n", resultadoNa10String);
     free(baseElevada);
@@ -197,7 +230,7 @@ void deNa10Decimal(int *BaseOrigen,char *numeroDecimal, char *resultadoNa10Strin
     free(resultadoNa10);
     free(parteDelNumero);
 }
- void toString(double *resultadoFloat, char * resultadoString, char * parteNum ){
+ void toString(double *resultadoFloat, char * resultadoString, char * parteNum){
      int *tamResultado;
     tamResultado=(int *)malloc(sizeof(int));
 
@@ -269,7 +302,7 @@ void deNa10Decimal(int *BaseOrigen,char *numeroDecimal, char *resultadoNa10Strin
     free(indiceNum);
     free(indiceNumCompleto);
  }
- void dividirCadenas(char *numEntero, char *numDecimal, char *numCompleto){
+ void dividirCadenas(char *numEntero, char *numDecimal, char *numCompleto, int * modo_verbose){
     // printf("Entra en dividirCadenas\n");
     int *indiceNumCompleto;
     indiceNumCompleto=(int *)malloc(sizeof(int));

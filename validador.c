@@ -27,11 +27,17 @@ int es_un_numero_valido_en_base(char * cadena, int * base) {
 
       *es_valido = es_un_digito_valido(c, base) || ((*c == '.') && !(*tiene_punto));
 
-      *tiene_punto = (*c == '.');
+
+      //printf("\t\t\t\tc: %c\n", *c);
+      //printf("\t\t\t\t*tiene_punto: %d\n", *tiene_punto);
+      //printf("\t\t\t\tes_un_digito_valido(c, base): %d\n", es_un_digito_valido(c, base));
+      //printf("\t\t\t\t((*c == '.') && !(*tiene_punto)): %d\n", ((*c == '.') && !(*tiene_punto)));
+
+
+      *tiene_punto = *tiene_punto || (*c == '.');
 
       (*i)++;
 
-      //printf("\t\t\t\tc: %c\n", *c);
   }
 
   free(c);

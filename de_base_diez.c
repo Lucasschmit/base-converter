@@ -47,15 +47,21 @@ char * de_base_diez(char * cadena, int * base_destino, int * modo_verbose) {
     parte_entera = get_parte_entera(cadena, modo_verbose);
     parte_fraccionaria = get_parte_fraccionaria(cadena, modo_verbose);
 
-    //printf("\tParte entera: %s\n", parte_entera);
-    //printf("\tParte fraccionaria: %s\n", parte_fraccionaria);
+    if (*modo_verbose) {
+      printf("Separando a %s en su parte entera y fraccionaria:\n", cadena);
+      printf("\tParte entera: %s\n", parte_entera);
+      printf("\tParte fraccionaria: %s\n", parte_fraccionaria);
+    }
 
     resultado_entero = convertir_parte_entera(parte_entera, base_destino, modo_verbose);
+    if (*modo_verbose) {
+      //printf("\tResultado parte entera: %s\n", resultado_entero);
+    }
+
     resultado_fraccionario = convertir_parte_fraccionaria(parte_fraccionaria, base_destino, modo_verbose);
-
-    //printf("\tResultado parte entera: %s\n", resultado_entero);
-    //printf("\tResultado parte fraccionaria: %s\n", resultado_fraccionario);
-
+    if (*modo_verbose) {
+      //printf("\tResultado parte fraccionaria: %s\n", resultado_fraccionario);
+    }
     *tam_resultado_entero = strlen(resultado_entero);
 
     //printf("tam resultado entero: %d.\n", *tam_resultado_entero);
@@ -114,23 +120,44 @@ char * convertir_parte_entera(char * cadena, int * base_destino, int * modo_verb
 
     valor_en_entero = string_a_int(cadena);
 
-    //printf("convirtiendo parte entera a base %d: %d\n", *valor_en_entero, *base_destino);
-
+    if (*modo_verbose) {
+        printf("\nConvirtiendo parte entera de base 10 a base %d.\n", *base_destino);
+        printf("\tTrabajando sobre el numero %d\n", *valor_en_entero);
+    }
     while (*valor_en_entero >= *base_destino) {
-        *resto = *valor_en_entero % *base_destino;
-        *valor_en_entero = *valor_en_entero / *base_destino;
+      if (*modo_verbose) {
+        printf("\tDividiendo %d entre la base de destino(%d):\n", *valor_en_entero, *base_destino);
+      }
+      *resto = *valor_en_entero % *base_destino;
 
-        //printf("resto: %d, valor_entero: %d\n", *resto, *valor_en_entero);
-        resultado_preliminar[*index_resultado_preliminar] = int_a_digito(resto);
-        //printf("\tse agrego como digito mas significativo: %c\n", resultado_preliminar[*index_resultado_preliminar]);
-        //printf("\t\tresultado preliminar: %s\n", &resultado_preliminar[*index_resultado_preliminar]);
+      if (*modo_verbose) {
+        printf("\tResto de dividir %d entre la base de destino(%d): %d\n", *valor_en_entero, *base_destino, *resto);
+      }
 
-        (*index_resultado_preliminar)--;
+      *valor_en_entero = *valor_en_entero / *base_destino;
+
+
+
+      //printf("resto: %d, valor_entero: %d\n", *resto, *valor_en_entero);
+      resultado_preliminar[*index_resultado_preliminar] = int_a_digito(resto);
+      //printf("\tse agrego como digito mas significativo: %c\n", resultado_preliminar[*index_resultado_preliminar]);
+      //printf("\t\tresultado preliminar: %s\n", &resultado_preliminar[*index_resultado_preliminar]);
+
+      if (*modo_verbose) {
+        printf("\tEl resto (%d) obtenido es el nuevo digito mas significativo(indice: %d) del numero expresado en la base de destino: %s\n\n", *resto, (*tam_resultado_preliminar) - (*index_resultado_preliminar) - 2, &resultado_preliminar[*index_resultado_preliminar]);
+        printf("\tNuevo numero sobre el que trabajaremos(cociente de la division que hicimos): %d\n", *valor_en_entero);
+      }
+
+      (*index_resultado_preliminar)--;
     }
 
     //printf("fuera del while\n");
 
     resultado_preliminar[*index_resultado_preliminar] = int_a_digito(valor_en_entero);
+
+    if (*modo_verbose) {
+      printf("\tComo el numero (%d) sobre el que estamos trabajando es menor que la base de destino(%d), simplemente lo agregamos como digito mas significativo (%c) al numero expresado en base de destino.\n", *valor_en_entero, *base_destino, resultado_preliminar[*index_resultado_preliminar]);
+    }
 
     //printf("resultado preliminar definitivo: %s\n", &resultado_preliminar[*index_resultado_preliminar]);
 
@@ -143,6 +170,9 @@ char * convertir_parte_entera(char * cadena, int * base_destino, int * modo_verb
     //printf("copiando resultado preliminar.\n");
     strcpy(resultado, &resultado_preliminar[*index_resultado_preliminar]);
 
+    if (*modo_verbose) {
+      printf("\n\tResultado de convertir la parte entera: %s\n", resultado);
+    }
 
     return resultado;
 }
@@ -171,6 +201,7 @@ char * convertir_parte_fraccionaria(char * cadena, int * base_destino, int * mod
 
     //printf("\t\t\tbase destino: %d\n", *base_destino);
     //printf("\t\t\tcadena: %s\n", cadena);
+    //printf("\t\t\t\tstrlen(cadena): %d\n", strlen(cadena));
     //printf("\t\t\tdivisor: %d\n", *divisor);
     //printf("\t\t\tvalor entero: %d\n", *valor_en_entero);
 

@@ -56,7 +56,7 @@
 
 1633924286 source:c:\programacion\code_blocks\organizaciondecomputadoras\proyecto-1\procesador_argumentos.c
 
-1633991993 source:c:\programacion\code_blocks\organizaciondecomputadoras\convert\de_base_diez.c
+1634069570 source:c:\programacion\code_blocks\organizaciondecomputadoras\convert\de_base_diez.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -77,11 +77,11 @@
 	"procesador_argumentos.h"
 	"constantes.h"
 
-1633992110 source:c:\programacion\code_blocks\organizaciondecomputadoras\convert\conversor_tipos.c
+1634082549 source:c:\programacion\code_blocks\organizaciondecomputadoras\convert\conversor_tipos.c
 	<stdlib.h>
 	"conversor_tipos.h"
 
-1633982666 source:c:\programacion\code_blocks\organizaciondecomputadoras\convert\validador.c
+1634082774 source:c:\programacion\code_blocks\organizaciondecomputadoras\convert\validador.c
 	<stdlib.h>
 	<stdio.h>
 	"validador.h"
@@ -89,7 +89,7 @@
 
 1633982309 c:\programacion\code_blocks\organizaciondecomputadoras\convert\validador.h
 
-1634059935 source:c:\programacion\code_blocks\organizaciondecomputadoras\convert\procesador_argumentos.c
+1634082975 source:c:\programacion\code_blocks\organizaciondecomputadoras\convert\procesador_argumentos.c
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
@@ -97,11 +97,11 @@
 	"validador.h"
 	"conversor_tipos.h"
 
-1634056808 c:\programacion\code_blocks\organizaciondecomputadoras\convert\constantes.h
+1634069852 c:\programacion\code_blocks\organizaciondecomputadoras\convert\constantes.h
 
 1634052614 c:\programacion\code_blocks\organizaciondecomputadoras\convert\procesador_argumentos.h
 
-1634059264 source:c:\programacion\code_blocks\organizaciondecomputadoras\convert\convert.c
+1634083227 source:c:\programacion\code_blocks\organizaciondecomputadoras\convert\convert.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -113,7 +113,7 @@
 
 1634001065 c:\programacion\code_blocks\organizaciondecomputadoras\convert\de_base_n_a_10.h
 
-1634058398 source:c:\programacion\code_blocks\organizaciondecomputadoras\convert\de_base_n_a_10.c
+1634083592 source:c:\programacion\code_blocks\organizaciondecomputadoras\convert\de_base_n_a_10.c
 	<stdio.h>
 	<stdlib.h>
 	<math.h>

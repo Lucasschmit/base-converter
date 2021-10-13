@@ -52,15 +52,23 @@ int main(int argc, char * argv[]) {
       mostrarAyuda();
     } else {
       resultado_en_base_diez = (char *) malloc(sizeof(char) * 5 * strlen(numero));
+      if (*modo_verbose) {
+        printf("Convertimos el numero de su base origen(%d) a una base intermedia(10), para luego convertirlo a la base de destino(%d).\n\n", *base_origen, *base_destino);
+      }
       deNa10(base_origen, numero, resultado_en_base_diez, modo_verbose);
-      //printf("Resultado de convertir (%s)%d a base 10 = (%s)10\n", numero, *base_origen, resultado_en_base_diez);
+      if (*modo_verbose) {
+        printf("Resultado de convertir (%s)%d a base 10 = (%s)10\n", numero, *base_origen, resultado_en_base_diez);
+        printf("\nConvirtiendo el numero de base 10 a su base de destino(%d).\n\n", *base_destino);
+      }
       resultado_definitivo = de_base_diez(resultado_en_base_diez, base_destino, modo_verbose);
-      //printf("Resultado de convertir (%s)10 a base %d = (%s)%d\n", resultado_en_base_diez, *base_destino, resultado_definitivo, *base_destino);
+      if (*modo_verbose) {
+        printf("Resultado de convertir (%s)10 a base %d = (%s)%d\n", resultado_en_base_diez, *base_destino, resultado_definitivo, *base_destino);
+      }
       printf("(%s)%d = (%s)%d\n", numero, *base_origen, resultado_definitivo, *base_destino);
     }
 
   } else {
-    printf("Ha ocurrido un error. Se detallan a continuacion:\n");
+    printf("Ha ocurrido uno o mas errores. Se detalla a continuacion:\n");
     if (*estado_argumentos & ERROR_CANTIDAD_DE_PARAMETROS) {
       printf("\tError: Faltan parametros.\n");
     }
@@ -89,6 +97,7 @@ int main(int argc, char * argv[]) {
     }
     printf("Codigo de error: 0x%X\n", *estado_argumentos);
     mostrarAyuda();
+    exit(EXIT_FAILURE);
   }
 
   exit(EXIT_SUCCESS);
@@ -99,13 +108,13 @@ void mostrarAyuda() {
   printf("\nconvert es un programa para convertir un numero de una base a otra.\n\n");
   printf("uso: convert -n <numero> [-s <base_origen>] [-d <base_destino>] [-v] [-h]\n\n");
 
-  printf("[-n]                  - Indica que el siguiente parametro es el numero a convertir\n");
-  printf("<numero>              - El numero a convertir.\n");
-  printf("[-s]                  - Indica que el siguiente parametro es la base en la que esta expresado el numero a convertir.\n");
-  printf("<base_origen>         - La base en la que esta expresado el numero a convertir. Rango: [%d,%d]. Valor por defecto: %d\n", BASE_MINIMA, BASE_MAXIMA,BASE_POR_DEFECTO);
-  printf("[-d]                  - Indica que el siguiente parametro es la base a la que se desea convertir el numero <numero>.\n");
-  printf("<base_destino>        - La base a la que se desea convertir el numero <numero>. Rango: [%d,%d]. Valor por defecto: %d\n", BASE_MINIMA, BASE_MAXIMA, BASE_POR_DEFECTO);
-  printf("[-v]                  - Imprime el paso a paso de la conversion.\n");
+  printf("[-n]                  - Indica que el siguiente parametro es el numero a convertir\n\n");
+  printf("<numero>              - El numero a convertir. Debe estar expresado en <base_origen>.\n\n");
+  printf("[-s]                  - Indica que el siguiente parametro es la base en la que esta expresado el numero a convertir.\n\n");
+  printf("<base_origen>         - La base en la que esta expresado el numero a convertir. Debe estar expresada en base 10. Rango: [%d,%d]. Valor por defecto: %d\n\n", BASE_MINIMA, BASE_MAXIMA,BASE_POR_DEFECTO);
+  printf("[-d]                  - Indica que el siguiente parametro es la base a la que se desea convertir el numero <numero>.\n\n");
+  printf("<base_destino>        - La base a la que se desea convertir el numero <numero>. Debe estar expresada en base 10. Rango: [%d,%d]. Valor por defecto: %d\n\n", BASE_MINIMA, BASE_MAXIMA, BASE_POR_DEFECTO);
+  printf("[-v]                  - Imprime el paso a paso de la conversion.\n\n");
   printf("\n");
 }
 

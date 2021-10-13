@@ -21,6 +21,11 @@ int * procesarArgumentos(int * argc, char * argv[], char ** numero, int ** base_
     base_maxima = (int*) malloc(sizeof(int));
     estado_argumentos = (int*) malloc(sizeof(int));
 
+    if (*argc == 1) {
+      *estado_argumentos = ERROR_CANTIDAD_DE_PARAMETROS | ERROR_FALTA_NUMERO;
+      return estado_argumentos;
+    }
+
     *base_diez = 10;
     *base_maxima = BASE_MAXIMA;
     *estado_argumentos = ERROR_FALTA_NUMERO;
@@ -33,8 +38,9 @@ int * procesarArgumentos(int * argc, char * argv[], char ** numero, int ** base_
         if (strcmp(parametro_actual, PARAMETRO_NUMERO) == 0) {
           //printf("\tSe ingreso el parametro para numero(%s).\n", parametro_actual);
           if ((*i) < (*argc) - 1) {
-            if (es_un_numero_valido_en_base(argv[(*i) + 1], base_maxima)) {
+            //printf("\tSe ingreso la cadena %s como numero.\n", argv[(*i) + 1]);
               *estado_argumentos = *estado_argumentos & (~ERROR_FALTA_NUMERO);
+            if (es_un_numero_valido_en_base(argv[(*i) + 1], base_maxima)) {
               //printf("\t\tEstado argumentos antes de numero: %2x\n", *estado_argumentos);
               if (cumple_restricciones_para_numero(argv[(*i) + 1], estado_argumentos)) {
                 *numero = argv[++(*i)];
@@ -170,18 +176,3 @@ int cumple_restricciones_para_numero(char * cadena, int * estado) {
     return 1;
   }
 }
-/*
-int representa_un_numero(char * cadena) {
-    int * base_maxima;
-    base_maxima = (int*) malloc(sizeof(int));
-    *base_maxima = BASE_MAXIMA;
-
-    if (es_un_numero_valido_en_base(cadena, base_maxima)) {
-        free(base_maxima);
-        return 1;
-    } else {
-        free(base_maxima);
-        return 0;
-    }
-}
-*/
