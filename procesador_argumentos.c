@@ -37,35 +37,25 @@ int * procesarArgumentos(int * argc, char * argv[], char ** numero, int ** base_
 
     for (*i = 0; *i < *argc; (*i)++) {
         parametro_actual = argv[*i];
-        //printf("argumento %d: <%s>\n", *i, parametro_actual);
 
         if (strcmp(parametro_actual, PARAMETRO_NUMERO) == 0) {
-          //printf("\tSe ingreso el parametro para numero(%s).\n", parametro_actual);
           if ((*i) < (*argc) - 1) {
-            //printf("\tSe ingreso la cadena %s como numero.\n", argv[(*i) + 1]);
               *estado_argumentos = *estado_argumentos & (~ERROR_FALTA_NUMERO);
             if (es_un_numero_valido_en_base(argv[(*i) + 1], base_maxima)) {
-              //printf("\t\tEstado argumentos antes de numero: %2x\n", *estado_argumentos);
               if (cumple_restricciones_para_numero(argv[(*i) + 1], estado_argumentos)) {
                 *numero = argv[++(*i)];
-                //printf("\t\tEstado argumentos despues de numero: %2x\n", *estado_argumentos);
               } else {
                 *estado_argumentos = *estado_argumentos | ERROR_NUMERO_INVALIDO;
-                //printf("\t\tEl numero no cumple las restricciones de cantidad de digitos.\n");
               }
-              //printf("\t\tnumero: %s\n", *numero);
             } else {
               *estado_argumentos = *estado_argumentos | ERROR_NUMERO_INVALIDO;
-              //printf("\tEl argumento <%s> NO tiene asociado un valor valido: %s\n", parametro_actual, argv[(*i) + 1]);
             }
           } else {
             *estado_argumentos = *estado_argumentos | ERROR_CANTIDAD_DE_PARAMETROS;
-            //printf("\tNO se asocio un valor al parametro <%s>.\n", parametro_actual);
           }
 
         } else if (strcmp(parametro_actual, PARAMETRO_BASE_ORIGEN) == 0) {
 
-          //printf("\tSe ingreso el parametro para base de origen(%s).\n", parametro_actual);
           if ((*i) < (*argc) - 1) {
             if (es_un_numero_valido_en_base(argv[(*i) + 1], base_diez) && representa_un_numero_entero(argv[(*i) + 1])) {
               aux = string_a_int(argv[++(*i)]);
@@ -75,20 +65,16 @@ int * procesarArgumentos(int * argc, char * argv[], char ** numero, int ** base_
                 *estado_argumentos = *estado_argumentos | ERROR_BASE_ORIGEN;
               }
               free(aux);
-              //printf("\t\tbase de origen: %d\n", **base_origen);
             } else {
               *estado_argumentos = *estado_argumentos | ERROR_BASE_ORIGEN;
-              //printf("\tEl argumento <%s> NO tiene asociado un valor valido: %s\n", parametro_actual, argv[(*i) + 1]);
             }
           } else {
             *estado_argumentos = *estado_argumentos | ERROR_CANTIDAD_DE_PARAMETROS;
             *estado_argumentos = *estado_argumentos | ERROR_BASE_ORIGEN;
-            //printf("\tNO se asocio un valor al parametro <%s>.\n", parametro_actual);
           }
 
         } else if (strcmp(parametro_actual, PARAMETRO_BASE_DESTINO) == 0) {
 
-          //printf("\tSe ingreso el parametro para base de destino(%s).\n", parametro_actual);
           if ((*i) < (*argc) - 1) {
             if (es_un_numero_valido_en_base(argv[(*i) + 1], base_diez) && representa_un_numero_entero(argv[(*i) + 1])) {
               aux = string_a_int(argv[++(*i)]);
@@ -99,20 +85,16 @@ int * procesarArgumentos(int * argc, char * argv[], char ** numero, int ** base_
               }
               free(aux);
 
-              //printf("\t\tbase de destino: %d\n", **base_destino);
             } else {
               *estado_argumentos = *estado_argumentos | ERROR_BASE_DESTINO;
             }
           } else {
             *estado_argumentos = *estado_argumentos | ERROR_CANTIDAD_DE_PARAMETROS;
             *estado_argumentos = *estado_argumentos | ERROR_BASE_DESTINO;
-            //printf("\tNO se asocio un valor al parametro <%s>.\n", parametro_actual);
           }
         } else if (strcmp(parametro_actual, OPCION_AYUDA) == 0) {
           *modo_ayuda = 1;
-          //printf("\tSe ingreso la opcion de ayuda.\n");
         } else if (strcmp(parametro_actual, OPCION_VERBOSE) == 0) {
-          //printf("\tSe ingreso la opcion de modo verbose.\n");
           *modo_verbose = 1;
         }
         free(parametro_actual);

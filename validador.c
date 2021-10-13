@@ -45,6 +45,7 @@ int es_un_numero_valido_en_base(char * cadena, int * base) {
 
   free(c);
   free(i);
+  free(tiene_punto);
 
   if (*es_valido) {
     free(es_valido);
